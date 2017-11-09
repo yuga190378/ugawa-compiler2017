@@ -36,3 +36,32 @@ class ASTVarRefNode extends ASTNode {
 		return "(VarRef "+varName+")";
 	}
 }
+
+class ASTUnaryExprNode extends ASTNode {
+	String op;
+	int value = -1;
+	String varName = null;
+	ASTNode operand;
+	ASTUnaryExprNode(String op, int value) {
+		this.op = op;
+		this.value = value;
+	}
+	ASTUnaryExprNode(String op, String varName) {
+		this.op = op;
+		this.varName = varName;
+	}
+	ASTUnaryExprNode(String op, ASTNode operand) {
+		this.op = op;
+		this.operand = operand;
+	}
+	@Override
+	public String toString() {
+		if (value != -1) {
+			return "(UnExpr "+op+" "+value+")";
+		} else if (varName != null) {
+			return "(UnExpr "+op+" "+varName+")";
+		} else {
+			return "(UnExpr "+op+" "+operand+")";
+		}
+	}
+}
