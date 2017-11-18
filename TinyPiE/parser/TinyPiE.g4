@@ -12,7 +12,7 @@ andExpr: andExpr ANDOP addExpr
 	| addExpr
 	;
 
-addExpr: addExpr ADDOP mulExpr
+addExpr: addExpr (ADDOP|SUBOP) mulExpr
 	| mulExpr
 	;
 
@@ -20,17 +20,18 @@ mulExpr: mulExpr MULOP unaryExpr
 	| unaryExpr
 	;
 	
-unaryExpr: VALUE				# literalExpr
-	| IDENTIFIER				# varExpr
-	| '(' expr ')'			# parenExpr
-	| UNOP	unaryExpr			# unExpr
+unaryExpr: VALUE					# literalExpr
+	| IDENTIFIER					# varExpr
+	| '(' expr ')'				# parenExpr
+	| (UNOP|SUBOP) unaryExpr				# unExpr
 	;
 
 ADDOP: '+';
+SUBOP: '-';
 MULOP: '*'|'/';
 ANDOP: '&';
 OROP:  '|';
-UNOP: '-'|'~';
+UNOP: 	'~';
 
 IDENTIFIER: 'x'|'y'|'z';
 VALUE: '0'|[1-9][0-9]*;

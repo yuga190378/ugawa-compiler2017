@@ -46,6 +46,6 @@ class ASTUnaryExprNode extends ASTNode {
 	}
 	@Override
 	public String toString() {
-		return "(BinExpr "+op+" "+operand+")";
+		return "(UnExpr "+op+" "+operand+")";
 	}
 }
