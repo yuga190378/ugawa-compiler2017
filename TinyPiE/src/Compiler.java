@@ -23,9 +23,23 @@ public class Compiler extends CompilerBase {
 				emitRRR("mul", REG_DST, REG_R1, REG_DST);
 			else if (nd.op.equals("/"))
 				emitRRR("udiv", REG_DST, REG_R1, REG_DST);
+			else if (nd.op.equals("&"))
+				emitRRR("and", REG_DST, REG_R1, REG_DST);
+			else if (nd.op.equals("|"))
+				emitRRR("orr", REG_DST, REG_R1, REG_DST);
 			else 
 				throw new Error("Unknown operator: "+nd.op);
 			emitPOP(REG_R1);
+		} else if (ndx instanceof ASTUnaryExprNode) {
+			ASTUnaryExprNode nd = (ASTUnaryExprNode) ndx;
+			compileExpr(nd.operand, env);
+			if (nd.op.equals("~"))
+				emitRR("mvn", REG_DST, REG_DST);
+			else if(nd.op.equals("-")) {
+				emitRR("mvn", REG_DST, REG_DST);
+				emitRRI("add", REG_DST, REG_DST, 1);
+			} else
+				throw new Error("Unknown operator: "+nd.op);
 		} else if (ndx instanceof ASTNumberNode) {
 			ASTNumberNode nd = (ASTNumberNode) ndx;
 			emitLDC(REG_DST, nd.value);
