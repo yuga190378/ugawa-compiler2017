@@ -1,0 +1,11 @@
+var im_the_scatman; var s10mn;
+{
+ im_the_scatman = 15;
+ while (im_the_scatman)
+   im_the_scatman = 1;
+ if (im_the_scatman)
+  s10mn = im_the_scatman;
+ else
+  s10mn = 128;
+ answer = s10mn - 1;
+}
