@@ -113,7 +113,7 @@ public class Compiler extends CompilerBase {
 			System.out.println("\t"+"eor"+" "+REG_R7+", "+REG_DST+", "+REG_R6+", "+"lsl #4");
 			emitRI("cmp", REG_R7, 10);
 			emitRRI("addcc", REG_R7, REG_R7, 48);
-			emitRRI("addge", REG_R7, REG_R7, 87);
+			emitRRI("addge", REG_R7, REG_R7, 55);
 			emitRR("mov", REG_DST, REG_R6);
 			System.out.println("\tstrb "+REG_R7+", ["+REG_R1+", #"+-1+"]!");
 			emitRRI("subs", REG_R4, REG_R4, 1);

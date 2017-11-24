@@ -20,7 +20,7 @@ L0:
 	eor r7, r0, r6, lsl #4
 	cmp r7, #10
 	addcc r7, r7, #48
-	addge r7, r7, #87
+	addge r7, r7, #55
 	mov r0, r6
 	strb r7, [r1, #-1]!
 	subs r4, r4, #1
