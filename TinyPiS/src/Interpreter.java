@@ -9,6 +9,7 @@ import parser.TinyPiSLexer;
 import parser.TinyPiSParser;
 
 public class Interpreter extends InterpreterBase {
+	boolean printflg = false;
 	int evalExpr(ASTNode ndx, Environment env) {
 		if (ndx instanceof ASTBinaryExprNode) {
 			ASTBinaryExprNode nd = (ASTBinaryExprNode) ndx;
@@ -22,8 +23,21 @@ public class Interpreter extends InterpreterBase {
 				return lhsValue * rhsValue;
 			else if (nd.op.equals("/"))
 				return lhsValue / rhsValue;
+			else if (nd.op.equals("&"))
+				return lhsValue & rhsValue;
+			else if (nd.op.equals("|"))
+				return lhsValue | rhsValue;
 			else
 				throw new Error("Unknwon operator: "+nd.op);
+		} else if (ndx instanceof ASTUnaryExprNode) {
+			ASTUnaryExprNode nd = (ASTUnaryExprNode) ndx;
+			int operand = evalExpr(nd.operand, env);
+			if (nd.op.equals("-"))
+				return -operand;
+			else if (nd.op.equals("~"))
+				return ~operand;
+			else
+				throw new Error("Unknown operator: "+nd.op);
 		} else if (ndx instanceof ASTNumberNode) {
 			ASTNumberNode nd = (ASTNumberNode) ndx;
 			return nd.value;
@@ -61,6 +75,11 @@ public class Interpreter extends InterpreterBase {
 			ASTWhileStmtNode nd = (ASTWhileStmtNode) ndx;
 			while (evalExpr(nd.cond, env) != 0)
 				evalStmt(nd.stmt, env);
+		} else if (ndx instanceof ASTPrintStmtNode) {
+			ASTPrintStmtNode nd = (ASTPrintStmtNode) ndx;
+			printflg = true;
+			int stmn = evalExpr(nd.expr, env);
+			System.out.println(String.format("%08X", stmn));
 		} else
 			throw new Error("Unknown statement: "+ndx);
 	}
@@ -79,6 +98,12 @@ public class Interpreter extends InterpreterBase {
 		Variable varAnswer = env.lookup("answer");
 		return varAnswer.get();
 	}
+	public void print(int answer){
+		if (printflg) {
+        } else {
+        System.out.println(answer);
+        }
+	}
 
 	public static void main(String[] args) throws IOException {
 		ANTLRInputStream input = new ANTLRInputStream(System.in);
@@ -90,6 +115,6 @@ public class Interpreter extends InterpreterBase {
         ASTNode ast = astgen.translate(tree);
         Interpreter interp = new Interpreter();
         int answer = interp.eval(ast);
-        System.out.println(answer);
+        interp.print(answer);
 	}
 }

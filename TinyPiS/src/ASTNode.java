@@ -75,6 +75,17 @@ class ASTWhileStmtNode extends ASTNode {
 	}
 }
 
+class ASTPrintStmtNode extends ASTNode {
+	ASTNode expr;
+	ASTPrintStmtNode(ASTNode expr) {
+		this.expr = expr;
+	}
+	@Override
+	public String toString() {
+		return "(PrintStmt "+expr+")";
+	}
+}
+
 class ASTBinaryExprNode extends ASTNode {
 	String op;
 	ASTNode lhs;
@@ -109,5 +120,18 @@ class ASTVarRefNode extends ASTNode {
 	@Override
 	public String toString() {
 		return "(VarRef "+varName+")";
+	}
+}
+
+class ASTUnaryExprNode extends ASTNode {
+	String op;
+	ASTNode operand;
+	ASTUnaryExprNode(String op, ASTNode operand) {
+		this.op = op;
+		this.operand = operand;
+	}
+	@Override
+	public String toString() {
+		return "(UnExpr "+op+" "+operand+")";
 	}
 }

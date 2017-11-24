@@ -4,6 +4,10 @@ public class CompilerBase {
 	/* レジスタ */
 	static final String REG_DST = "r0";  /* return value */
 	static final String REG_R1  = "r1";
+	static final String REG_R2  = "r2";
+	static final String REG_R4  = "r4";
+	static final String REG_R6  = "r6";
+	static final String REG_R7  = "r7";
 	static final String REG_FP  = "r11";
 	static final String REG_SP  = "r13";
 	static final String REG_LR  = "r14";
