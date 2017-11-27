@@ -98,12 +98,6 @@ public class Interpreter extends InterpreterBase {
 		Variable varAnswer = env.lookup("answer");
 		return varAnswer.get();
 	}
-	public void print(int answer){
-		if (printflg) {
-        } else {
-        System.out.println(answer);
-        }
-	}
 
 	public static void main(String[] args) throws IOException {
 		ANTLRInputStream input = new ANTLRInputStream(System.in);
@@ -115,6 +109,6 @@ public class Interpreter extends InterpreterBase {
         ASTNode ast = astgen.translate(tree);
         Interpreter interp = new Interpreter();
         int answer = interp.eval(ast);
-        interp.print(answer);
+        System.out.println(answer);
 	}
 }
